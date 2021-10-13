@@ -1,0 +1,62 @@
+int trigPin = 12 ;
+int echoPin = 11 ;
+int echoval ;
+int dt = 250 ;
+float Distance ;
+int buzz = 10 ;
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(trigPin,OUTPUT);
+    pinMode(echoPin,INPUT);
+}
+
+void loop()
+{
+ digitalWrite(trigPin,LOW);
+ delayMicroseconds(10);
+  digitalWrite(trigPin,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin,LOW);
+  delayMicroseconds(10);
+  
+  echoval = pulseIn(echoPin,HIGH);
+  delay(25);
+   Distance = echoval*0.000001*335.4;
+  Distance = Distance /2;
+  Serial.println(Distance);
+  
+  if (Distance<2){
+    
+    analogWrite(buzz,echoval);
+    delay(25);
+    analogWrite(buzz,0);
+    delay(25);
+    analogWrite(buzz,echoval);
+    delay(25);
+  }
+  else if (Distance >2 && Distance <4){
+    analogWrite(buzz,echoval);
+    delay(5000);
+    analogWrite(buzz,0);
+    delay(5000);
+    analogWrite(buzz,echoval);
+    delay(5000);
+  }
+
+  
+else if (Distance >4){
+   analogWrite(buzz,echoval);
+    delay(1000);
+    analogWrite(buzz,0);
+    delay(1000);
+    analogWrite(buzz,echoval);
+    delay(1000);
+  }
+
+
+
+
+}
+    
